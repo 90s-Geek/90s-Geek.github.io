@@ -1,6 +1,5 @@
-# Welcome to my live pages all about dogs!  
-A live Pages view of the doggo's site. 
+A live Pages view of the site. 
 
-https://webd-student1.github.io/
+https://90s-Geek.github.io/
 
-This is also the test student account for this 225 course. :) 
+This is a test account for WEBD-225.
