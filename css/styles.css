@@ -44,6 +44,11 @@ img.dibley {
     max-width: 100%
 }
 
+.dibley {
+  border: 5px solid #2c3e50; /* Thickness, Style, and Color */
+  padding: 5px;             /* Optional: adds space between the image and border */
+}
+
 .bg-light-beige {
   background-color: #edede9;
 }
