@@ -32,10 +32,61 @@
         </ul>
     </div>
 </nav>
+
+<main role="main" class="container mt-5 pt-5">
+    <h2 class="mt-4 mb-4 text-center">Meet the Pets</h2>
     
-<main role="main" class="container-fluid mt-5 pt-5">
-    <h2 class="mt-4">Carousel</h2>
-    
+    <div id="petCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#petCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#petCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#petCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#petCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+
+        <div class="carousel-inner shadow rounded">
+            <div class="carousel-item active">
+                <img src="images/The Fuzzbutts.jpg" class="d-block w-100" alt="The Fuzzbutts">
+                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                    <h5>The Fuzzbutts</h5>
+                    <p>All the gang hanging out together.</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="images/Boomer.jpg" class="d-block w-100" alt="Boomer">
+                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                    <h5>Boomer</h5>
+                    <p>The king of the household taking a nap.</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="images/Ronan.jpg" class="d-block w-100" alt="Ronan">
+                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                    <h5>Ronan</h5>
+                    <p>Always ready for an adventure.</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="images/Drax.jpg" class="d-block w-100" alt="Drax">
+                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                    <h5>Drax</h5>
+                    <p>Testing out his new favorite spot.</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#petCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#petCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
     </main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
