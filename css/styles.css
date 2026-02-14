@@ -33,3 +33,17 @@ img.dibley {
     width: 100%;      
     height: auto;    
 }
+
+/* CAROUSEL LIMITS */
+#petCarousel {
+    max-width: 800px;
+    margin: 0 auto; /* Centers the carousel */
+    border-radius: 0.5rem; /* Optional: matches your 'rounded' class */
+    overflow: hidden;    /* Keeps images from spilling out of rounded corners */
+}
+
+.carousel-item img {
+    height: auto;
+    max-height: 600px;  /* Optional: keeps the height from being too tall on desktops */
+    object-fit: cover;  /* Ensures images fill the area nicely if they vary in aspect ratio */
+}
