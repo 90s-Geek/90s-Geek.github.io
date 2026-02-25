@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tech News – John Holland's live feed of top Hacker News stories, updated on every visit.">
+    <meta name="author" content="John Holland">
+    <title>Tech News: John Holland</title>
+
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/technews.css" rel="stylesheet">
+</head>
+<body class="bg-light-beige">
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">John Holland</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="grid.html">Grid</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="carousel.html">Carousel</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="technews.html">Tech News</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main role="main" class="container mt-5 pt-5">
+    <div class="site-wrapper">
+        <h1 class="mt-4 mb-2">Tech News</h1>
+        <p class="lead mb-4">Top stories from <a href="https://news.ycombinator.com" target="_blank" rel="noopener noreferrer">Hacker News</a>, updated live on every visit.</p>
+
+        <!-- Loading spinner (hidden once stories load) -->
+        <div id="hn-loading" class="text-center py-5">
+            <div class="spinner-border text-secondary" role="status">
+                <span class="visually-hidden">Loading Hacker News stories...</span>
+            </div>
+            <p class="mt-3 text-muted">Fetching top stories...</p>
+        </div>
+
+        <!-- Error message (hidden unless fetch fails) -->
+        <div id="hn-error" class="news-error d-none">
+            <strong>Could not load stories.</strong> Please try refreshing the page.
+        </div>
+
+        <!-- Stories render here -->
+        <div id="hn-container" class="news-grid"></div>
+    </div>
+</main>
+
+<footer class="bg-dark text-light mt-5 py-4">
+    <div class="container text-center">
+        <p class="mb-1">&copy; 2025 John Holland &mdash; WEBD-225</p>
+        <p class="mb-0 small text-secondary">Built with Bootstrap 5 &bull; Champlain College</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+<script>
+    (function () {
+        'use strict';
+
+        var STORY_COUNT  = 16;
+        var HN_BASE      = 'https://hacker-news.firebaseio.com/v0';
+        var container    = document.getElementById('hn-container');
+        var loadingEl    = document.getElementById('hn-loading');
+        var errorEl      = document.getElementById('hn-error');
+
+        function fmtDate(unixSecs) {
+            if (!unixSecs) return '';
+            var d = new Date(unixSecs * 1000);
+            return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function showError() {
+            loadingEl.classList.add('d-none');
+            errorEl.classList.remove('d-none');
+        }
+
+        function buildCard(story, rank) {
+            var card = document.createElement('article');
+            card.className = 'news-card';
+
+            var rankEl = document.createElement('span');
+            rankEl.className = 'rank-badge';
+            rankEl.textContent = '#' + rank;
+
+            var h3 = document.createElement('h3');
+            var a  = document.createElement('a');
+            a.href        = story.url || ('https://news.ycombinator.com/item?id=' + story.id);
+            a.target      = '_blank';
+            a.rel         = 'noopener noreferrer';
+            a.textContent = story.title || 'Untitled';
+            h3.appendChild(a);
+
+            var meta = document.createElement('p');
+            meta.className = 'news-meta';
+
+            var pts  = (story.score || 0) + ' pts';
+            var cmts = (story.descendants || 0) + ' comments';
+            var date = fmtDate(story.time);
+            var hnLink = 'https://news.ycombinator.com/item?id=' + story.id;
+
+            meta.innerHTML =
+                pts + ' &bull; ' +
+                '<a href="' + hnLink + '" target="_blank" rel="noopener noreferrer">' + cmts + '</a>' +
+                (date ? ' &bull; ' + date : '');
+
+            card.appendChild(rankEl);
+            card.appendChild(h3);
+            card.appendChild(meta);
+            return card;
+        }
+
+        fetch(HN_BASE + '/topstories.json')
+            .then(function (res) {
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                return res.json();
+            })
+            .then(function (ids) {
+                var topIds = ids.slice(0, STORY_COUNT);
+                return Promise.all(topIds.map(function (id) {
+                    return fetch(HN_BASE + '/item/' + id + '.json')
+                        .then(function (r) { return r.json(); })
+                        .catch(function () { return null; });
+                }));
+            })
+            .then(function (stories) {
+                loadingEl.classList.add('d-none');
+
+                var valid = stories.filter(Boolean);
+                if (valid.length === 0) { showError(); return; }
+
+                valid.forEach(function (story, i) {
+                    container.appendChild(buildCard(story, i + 1));
+                });
+            })
+            .catch(function () {
+                showError();
+            });
+
+    }());
+</script>
+</body>
+</html>
