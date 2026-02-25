@@ -1,49 +1,157 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display&display=swap');
+/* ==========================================================================
+   styles.css — Global styles for John Holland WEBD-225
+   ========================================================================== */
 
-/* GLOBAL STYLES */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap');
+
+/* ── Global ─────────────────────────────────────────────────────────────── */
 body {
     background-color: #edede9;
-} 
+}
 
 .bg-light-beige {
     background-color: #edede9;
 }
 
+/* ── Typography ─────────────────────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
 }
 
 p {
     font-family: 'Open Sans', sans-serif;
-    font-size: 1.2rem; 
+    font-size: 1.1rem;
 }
 
+.lead {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* ── Site Wrapper (centers content, max 1000px) ─────────────────────────── */
+.site-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* ── Layout ─────────────────────────────────────────────────────────────── */
 main.container-fluid {
-    width: 100%; 
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
+/* ── Navbar ─────────────────────────────────────────────────────────────── */
 .navbar-brand {
     margin-left: 20px;
 }
 
-img.dibley {
-    max-width: 250px; 
-    width: 100%;      
-    height: auto;    
+/* Active nav link indicator */
+.navbar-nav .nav-link.active {
+    border-bottom: 2px solid #fff;
+    padding-bottom: calc(0.5rem - 2px);
 }
 
-/* CAROUSEL LIMITS */
+/* ── Hero Image ─────────────────────────────────────────────────────────── */
+.hero-img {
+    max-width: 100%;
+    height: auto;
+    width: 350px;
+}
+
+/* ── Home Hero section ───────────────────────────────────────────────────── */
+.home-hero {
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* ── Section spacing ─────────────────────────────────────────────────────── */
+section {
+    margin-bottom: 2rem;
+}
+
+section h2 {
+    margin-bottom: 1rem;
+}
+
+/* ── Carousel ────────────────────────────────────────────────────────────── */
 #petCarousel {
     max-width: 800px;
-    margin: 0 auto; /* Centers the carousel */
-    border-radius: 0.5rem; /* Optional: matches your 'rounded' class */
-    overflow: hidden;    /* Keeps images from spilling out of rounded corners */
+    margin: 0 auto;
+    border-radius: 0.5rem;
+    overflow: hidden;
 }
 
 .carousel-item img {
     height: auto;
-    max-height: 600px;  /* Optional: keeps the height from being too tall on desktops */
-    object-fit: cover;  /* Ensures images fill the area nicely if they vary in aspect ratio */
+    max-height: 600px;
+    object-fit: cover;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+footer {
+    font-family: 'Open Sans', sans-serif;
+}
+
+footer p {
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* ── Tablet (≤768px) ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .hero-img {
+        width: 100%;
+        max-width: 300px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .home-hero .row {
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 1.9rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .site-wrapper {
+        padding: 0 0.75rem;
+    }
+}
+
+/* ── Phone (≤480px) ──────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    p {
+        font-size: 1rem;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    .hero-img {
+        max-width: 240px;
+    }
+
+    .site-wrapper {
+        padding: 0 0.5rem;
+    }
+
+    footer p {
+        font-size: 0.85rem;
+    }
 }
